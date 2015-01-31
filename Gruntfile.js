@@ -66,9 +66,9 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: 3000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -172,35 +172,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Compiles Sass to CSS and generates necessary files if requested
-    // compass: {
-    //   options: {
-    //     sassDir: '<%= yeoman.app %>/styles',
-    //     cssDir: '.tmp/styles',
-    //     generatedImagesDir: '.tmp/images/generated',
-    //     imagesDir: '<%= yeoman.app %>/images',
-    //     javascriptsDir: '<%= yeoman.app %>/scripts',
-    //     fontsDir: '<%= yeoman.app %>/styles/fonts',
-    //     importPath: './bower_components',
-    //     httpImagesPath: '/images',
-    //     httpGeneratedImagesPath: '/images/generated',
-    //     httpFontsPath: '/styles/fonts',
-    //     relativeAssets: false,
-    //     assetCacheBuster: false,
-    //     raw: 'Sass::Script::Number.precision = 10\n'
-    //   },
-    //   dist: {
-    //     options: {
-    //       generatedImagesDir: '<%= yeoman.dist %>/images/generated'
-    //     }
-    //   },
-    //   server: {
-    //     options: {
-    //       debugInfo: true
-    //     }
-    //   }
-    // },
-
     sass: {
       options:{
         sourceMap: true,
@@ -209,6 +180,11 @@ module.exports = function (grunt) {
       server: {
         files: {
           '.tmp/styles/main.css': ['<%= yeoman.app %>/styles/main.scss']
+        }
+      },
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': ['<%= yeoman.app %>/styles/main.scss']
         }
       }
     },

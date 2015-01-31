@@ -11,19 +11,17 @@
 angular
   .module('wishlistApp', [
     'ngRoute',
-    'uploadPhoto'
+    'LocalStorageModule'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, localStorageServiceProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
       .otherwise({
         redirectTo: '/'
       });
+
+      localStorageServiceProvider.setPrefix('wishlistApp');
   });

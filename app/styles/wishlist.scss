@@ -80,14 +80,34 @@
     max-height: 20px;
   }
 
+  &__detailsContainer{
+    float:left;
+    width: calc(100% - 102px);
+    margin-left: 5px;
+
+    &--noImage{
+      width: calc(100% - 46px);
+    }
+  }
+
   &__nameContainer, &__descriptionContainer {
     display: inline-block;
     width: 100%;
   }
 
   &__image {
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    margin-left: 5px;
+  }
+
+  &__lastModified {
+    color:#aaaaaa;
+    font:{
+      size:12px;
+      style: italic;
+      weight: 300;
+    }
+    margin:0;
   }
 }
 
@@ -96,6 +116,15 @@
 
   &__setBudget, &__details {
     width:50%;
+  }
+
+  &__details{
+    float: right;
+  }
+
+  &__inputContainer {
+    display: block;
+    margin-top: 10px;
   }
 
   &__currentBudgetContainer,

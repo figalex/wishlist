@@ -7,13 +7,13 @@
 
       <input type="text" class="form__field newItem__description" name="description" ng-model="newItem.description" placeholder="Description" required>
 
-      <input type="text" class="form__field newItem__price" name="price" ng-model="newItem.price" placeholder="Price" required>
+      <input type="number" class="form__field newItem__price" name="price" ng-model="newItem.price" placeholder="Price" required>
 
       <button class="button newItem__addButton" ng-click="addNewItem()">+</button>
     </div>
     <div class="newItem__imageFieldContainer">
       <label for="image" class="newItem__photoFieldLabel">Item photo:</label>
-      <input type="file" name="image" class="form__field form__field--file newItem__image" upload-photo="newItem.image">
+      <input type="file" name="image" class="form__field form__field--file newItem__image" upload-photo="newItem.image" reset-on-event>
     </div>
   </form>
   <div class="wishlist__list">
@@ -27,43 +27,58 @@
     <div class="wishlist__filters filters">
       <div class="filters__searchContainer">
         <label for="search" class="filters__searchLabel">Search item:</label>
-        <input type="text" class="filters__search">
+        <input type="text" class="filters__search" ng-model="model.searchQuery">
       </div>
       <div class="filters__itemsSwitch">
-        <a href="" class="itemsSwitch__showWhislistItems">Show wishlist items</a>&nbsp;|
-        <a href="" class="itemsSwitch__showBoughtItems">Show bought items</a>
+        <a href="" class="itemsSwitch__showWhislistItems" ng-click="switchFilter(WISHLIST_ITEMS)" ng-class="{'itemsSwitch--active': model.currentListFilter == WISHLIST_ITEMS}">Show wishlist items</a>&nbsp;|
+
+        <a href="" class="itemsSwitch__showBoughtItems" ng-click="switchFilter(BOUGHT_ITEMS)" ng-class="{'itemsSwitch--active': model.currentListFilter == BOUGHT_ITEMS}">Show bought items</a>
       </div>
     </div>
 
     <h3 class="wishlist__noItemsMessage" ng-if="model.itemsToDisplay.length < 1">No items</h3>
 
-    <div class="item" ng-repeat="item in model.itemsToDisplay">
-      <input type="checkbox" class="item__checkbox pull-left" ng-click="markAsBought($index)">
+    <div class="item" ng-repeat="item in model.itemsToDisplay | orderBy:lastModifiedDate | filter:{name: model.searchQuery}">
+      <!-- <input type="checkbox" class="item__checkbox pull-left" ng-click="markAsBought($index)"> -->
+      <button class="item__buyButton pull-left" ng-click="markAsBought($index)">Buy</button>
       <div class="item__imageContainer pull-left" ng-if="item.image">
         <img ng-src="{{item.image}}" alt="{{item.name}}" class="item__image">
       </div>
-      <div class="item__nameContainer">
-        <p class="item__name pull-left">{{item.name}}</p>
-        <p class="item__price pull-right">{{item.price | currency}}</p>
+      <div class="item__detailsContainer" ng-class="{'item__detailsContainer--noImage': !item.image}">
+        <div class="item__nameContainer">
+          <p class="item__name pull-left">{{item.name}}</p>
+          <p class="item__price pull-right">{{item.price | currency}}</p>
+        </div>
+        <div class="item__descriptionContainer">
+          <p class="item__description">
+            {{item.description}}
+          </p>
+        </div>
       </div>
-      <div class="item__descriptionContainer">
-        <p class="item__description">
-          {{item.description}}
-        </p>
-      </div>
+      <div class="item__lastModifiedContainer pull-left">
+          <p class="item__lastModified">
+            Last Modified: {{item.lastModifiedDate | date: "d MMMM yyyy 'at' h:mm" }}
+          </p>
+        </div>
     </div>
   </div>
 
   <div class="wishlist__budget">
     <div class="budget__setBudget pull-left">
-      <button class="button budget__setNewBudgetButton">Set new budget</button>
+      <button class="button budget__setNewBudgetButton" ng-click="model.showSetBudget = !model.showSetBudget">{{(model.showSetBudget) ? 'Cancel':'Set new budget'}}</button>
+
+      <div class="budget__inputContainer" ng-show="model.showSetBudget">
+        <label for="budget" class="budget__newBudgetLabel">Budget:</label>
+        <input type="number" class="budget__newBudgetInput" name="budget" ng-model="model.budget">
+        <button class="budget__setBudgetButton" ng-click="setBudget()">Set</button>
+      </div>
     </div>
-    <div class="budget__details pull-right">
+    <div class="budget__details">
 
       <div class="budget__currentBudgetContainer pull-left">
         <label for="" class="budget__currentBudgetLabel">Current Budget</label>
         <div class="budget__currentBudget">
-          {{wishlist.budget | currency}}
+          {{(wishlist.budget | currency) || '----'}}
         </div>
       </div>
 
@@ -77,7 +92,7 @@
       <div class="budget__toSpendContainer pull-left">
         <label for="" class="buget__toSpendLabel">To Spend</label>
         <div class="budget__toSpend">
-          {{wishlist.toSpend | currency}}
+          {{(wishlist.toSpend | currency) || '----'}}
         </div>
       </div>
     </div>
