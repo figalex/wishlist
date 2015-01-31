@@ -1,0 +1,107 @@
+
+@import "form.scss";
+
+.wishlist {
+
+  width: 100%;
+
+  &__newItemForm{
+    width: 100%;
+  }
+
+  &__list{
+    padding: 8px;
+    background-color: #eeeeee;
+    @include border-radius(6px);
+  }
+
+  &__budget {
+    margin-top: 24px;
+  }
+
+}
+
+
+.newItem {
+
+  &__name, &__description, &__price {
+    margin-right: 5px;
+  }
+
+  &__name{
+    width: 30%;
+  }
+
+  &__description{
+    width: 35%;
+  }
+
+  &__price {
+    width: 15%;
+  }
+
+  &__imageFieldContainer {
+    margin:8px 0;
+
+    .newItem__image {
+      display: inline-block;
+    }
+  }
+
+  &__addButton{
+    float:right;
+    width: 10%;
+  }
+}
+
+
+.item {
+  display: inline-block;
+  width: 100%;
+  padding:8px;
+  margin-bottom: 8px;
+  background-color:white;
+  @include border-radius(7px);
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  &__name, &__price, &__description {
+    margin:0;
+  }
+
+  &__name {
+    font:{
+      size:14px;
+      weight:bold;
+    }
+    max-width: 75%;
+    max-height: 20px;
+  }
+
+  &__nameContainer, &__descriptionContainer {
+    display: inline-block;
+    width: 100%;
+  }
+
+  &__image {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+
+.budget {
+
+  &__setBudget, &__details {
+    width:50%;
+  }
+
+  &__currentBudgetContainer,
+  &__moneySpentContainer,
+  &__toSpendContainer {
+    width: 33%;
+    text-align: right;
+  }
+}

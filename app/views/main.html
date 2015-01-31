@@ -1,0 +1,89 @@
+<div class="wishlist">
+  <form name="newItemForm" class="form wishlist__newItemForm newItem">
+    <p class="newItem__title">Add a new item to your wishlist</p>
+    <div class="newItem__fieldsContainer">
+
+      <input type="text" class="form__field newItem__name" name="name" ng-model="newItem.name" placeholder="Item name" required>
+
+      <input type="text" class="form__field newItem__description" name="description" ng-model="newItem.description" placeholder="Description" required>
+
+      <input type="text" class="form__field newItem__price" name="price" ng-model="newItem.price" placeholder="Price" required>
+
+      <button class="button newItem__addButton" ng-click="addNewItem()">+</button>
+    </div>
+    <div class="newItem__imageFieldContainer">
+      <label for="image" class="newItem__photoFieldLabel">Item photo:</label>
+      <input type="file" name="image" class="form__field form__field--file newItem__image" upload-photo="newItem.image">
+    </div>
+  </form>
+  <div class="wishlist__list">
+    <!-- <h1>'Allo, 'Allo!</h1>
+    <p class="lead">
+      <img src="images/yeoman.png" alt="I'm Yeoman"><br>
+      Always a pleasure scaffolding your apps.
+    </p>
+    <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p> -->
+
+    <div class="wishlist__filters filters">
+      <div class="filters__searchContainer">
+        <label for="search" class="filters__searchLabel">Search item:</label>
+        <input type="text" class="filters__search">
+      </div>
+      <div class="filters__itemsSwitch">
+        <a href="" class="itemsSwitch__showWhislistItems">Show wishlist items</a>&nbsp;|
+        <a href="" class="itemsSwitch__showBoughtItems">Show bought items</a>
+      </div>
+    </div>
+
+    <h3 class="wishlist__noItemsMessage" ng-if="model.itemsToDisplay.length < 1">No items</h3>
+
+    <div class="item" ng-repeat="item in model.itemsToDisplay">
+      <input type="checkbox" class="item__checkbox pull-left" ng-click="markAsBought($index)">
+      <div class="item__imageContainer pull-left" ng-if="item.image">
+        <img ng-src="{{item.image}}" alt="{{item.name}}" class="item__image">
+      </div>
+      <div class="item__nameContainer">
+        <p class="item__name pull-left">{{item.name}}</p>
+        <p class="item__price pull-right">{{item.price | currency}}</p>
+      </div>
+      <div class="item__descriptionContainer">
+        <p class="item__description">
+          {{item.description}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wishlist__budget">
+    <div class="budget__setBudget pull-left">
+      <button class="button budget__setNewBudgetButton">Set new budget</button>
+    </div>
+    <div class="budget__details pull-right">
+
+      <div class="budget__currentBudgetContainer pull-left">
+        <label for="" class="budget__currentBudgetLabel">Current Budget</label>
+        <div class="budget__currentBudget">
+          {{wishlist.budget | currency}}
+        </div>
+      </div>
+
+      <div class="budget__moneySpentContainer pull-left">
+        <label for="" class="budget__moneySpentLabel">Total Spent</label>
+        <div class="budget__moneySpent">
+          {{wishlist.moneySpent | currency}}
+        </div>
+      </div>
+
+      <div class="budget__toSpendContainer pull-left">
+        <label for="" class="buget__toSpendLabel">To Spend</label>
+        <div class="budget__toSpend">
+          {{wishlist.toSpend | currency}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row marketing">
+
+  </div>
+</div>

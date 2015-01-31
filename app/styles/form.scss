@@ -1,0 +1,26 @@
+/* Mixins */
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+
+.form {
+
+  &__field {
+    font:{
+      size: 14px;
+      weight: 300;
+    }
+    border: 1px solid #e1e1e1;
+    @include border-radius(5px);
+
+    &--file{
+      border:0;
+    }
+  }
+}
